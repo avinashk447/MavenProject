@@ -6,7 +6,7 @@ stage ('compile-package')
 {
 //get maven home path
 def mvnHome = tool name: 'maven', type: 'maven'
-  sh "${mvnHome}\C:\Program Files (x86)\Jenkins\jobs\mvn package"
+  sh "${mvnHome}\Jenkins\jobs\mvn package"
 
 }
 
