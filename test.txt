@@ -1,1 +1,117 @@
 new file 
+To install Jenkins on your Ubuntu system, follow these steps:
+
+Install Java.
+
+Since Jenkins is a Java application, the first step is to install Java. Update the package index and install the Java 8 OpenJDK package with the following commands:
+
+sudo apt update
+sudo apt install openjdk-8-jdk
+Copy
+The current version of Jenkins does not support Java 10 (and Java 11) yet. If you have multiple versions of Java installed on your machine make sure Java 8 is the default Java version.
+
+Add the Jenkins Debian repository.
+
+Import the GPG keys of the Jenkins repository using the following wget command:
+
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+Copy
+The command above should output OK which means that the key has been successfully imported and packages from this repository will be considered trusted.
+
+Next, add the Jenkins repository to the system with:
+
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+Copy
+Install Jenkins.
+
+Once the Jenkins repository is enabled, update the apt package list and install the latest version of Jenkins by typing:
+
+sudo apt update
+sudo apt install jenkins
+Copy
+Jenkins service will automatically start after the installation process is complete. You can verify it by printing the service status:
+
+systemctl status jenkins
+Copy
+You should see something similar to this:
+
+● jenkins.service - LSB: Start Jenkins at boot time
+Loaded: loaded (/etc/init.d/jenkins; generated)
+Active: active (exited) since Wed 2018-08-22 13:03:08 PDT; 2min 16s ago
+    Docs: man:systemd-sysv-generator(8)
+    Tasks: 0 (limit: 2319)
+CGroup: /system.slice/jenkins.service
+Copy
+Adjusting Firewall
+If you are installing Jenkins on a remote Ubuntu server that is protected by a firewall you’ll need to open port 8080. Assuming you are using UFW to manage your firewall, you can open the port with the following command:
+
+
+sudo ufw allow 8080
+Copy
+Verify the change with:
+
+sudo ufw status
+Copy
+Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere
+8080                       ALLOW       Anywhere
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+8080 (v6)                  ALLOW       Anywhere (v6)
+Copy
+Setting Up Jenkins
+To set up your new Jenkins installation, open your browser, type your domain or IP address followed by port 8080, http://your_ip_or_domain:8080 and screen similar to the following will be displayed:
+
+
+During the installation, the Jenkins installer creates an initial 32-character long alphanumeric password. Use the following command to print the password on your terminal:
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+Copy
+2115173b548f4e99a203ee99a8732a32
+Copy
+Copy the password from your terminal, paste it into the Administrator password field and click Continue.
+
+
+On the next screen, the setup wizard will ask you whether you want to install suggested plugins or you want to select specific plugins. Click on the Install suggested plugins box, and the installation process will start immediately.
+
+
+
+Once the plugins are installed, you will be prompted to set up the first admin user. Fill out all required information and click Save and Continue.
+
+
+The next page will ask you to set the URL for your Jenkins instance. The field will be populated with an automatically generated URL.
+
+
+Confirm the URL by clicking on the Save and Finish button and the setup process will be completed.
+
+
+Click on the Start using Jenkins button and you will be redirected to the Jenkins dashboard logged in as the admin user you have created in one of the previous steps.
+
+
+At this point, you’ve successfully installed Jenkins on your system.
+
+Conclusion
+In this tutorial, you have learned how to install and perform the initial configuration of Jenkins. You can now start exploring Jenkins features by visiting the official Jenkins documentation page.
+
+If you have any question, please leave a comment below.
+
+jenkins
+ubuntu
+report this ad
+
+report this ad
+RELATED TUTORIALS
+
+How to Install Minecraft Server on Ubuntu 18.04
+How to Install WordPress with Apache on Ubuntu 18.04
+How to Install Kodi on Ubuntu 18.04
+How to Install Laravel on Ubuntu 18.04
+How to Install Magento 2 on Ubuntu 18.04
+How To Install and Configure Redmine on Ubuntu 18.04
+How to Install TeamViewer on Ubuntu 18.04
+How To Install and Configure Zabbix on Ubuntu 18.04
+How To Add Swap Space on Ubuntu 18.04
+How to Install and Use FFmpeg on Ubuntu 18.04
+
